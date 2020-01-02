@@ -1,0 +1,41 @@
+{
+  "name": "petmash",
+  "version": "1.0.0",
+  "description": "Pet smash Application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manny516/petmash.git"
+  },
+  "keywords": [
+    "Pets",
+    "dogs",
+    "cats"
+  ],
+  "author": "Immanuel Walthrust",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manny516/petmash/issues"
+  },
+  "homepage": "https://github.com/manny516/petmash#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "lodash": "^4.17.15",
+    "sass": "^1.24.0",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "node-sass": "^4.13.0",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
