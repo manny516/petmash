@@ -1,13 +1,13 @@
 require('./css/main.scss');
+
 var btnClick = document.querySelector('.test');
-var theBody = document.querySelector('body');
+var theBody = document.querySelector('#draw');
+var localStorageVal = Object.values(window.localStorage);
+
 
 function dogData(){
 
-    var apiUrls = [];
-
-    if( window.localStorage.length < 1){
-
+    if(window.localStorage.length <= 1){
         fetch("https://api.thedogapi.com/v1/images/search?limit=100",{
         method: 'GET',
         headers : {
@@ -17,32 +17,60 @@ function dogData(){
         }).then( (response) =>{ 
             return response.json();
         }).then((theData) => {
-            var dogData = [];
+
             theData.map((item,index) => {
-                // dogData.push(item.url);
-                // apiUrl.push(item.url);
-                // // console.log(apiUrl[0])
-                // theBody.innerHTML = `<img src="${apiUrl[0]}" alt="The image" width=500 />
-                
-                // <img src="${apiUrl[1]}" alt="The image" width=500 />
-                // `;
                 window.localStorage.setItem('Dog'+index,item.url);
-            });
+            })
+        }).then(() =>{
+            console.log("No Local storage data was found : Successfully Created Local storage data");
+            return Object.values(window.localStorage);
+        }).catch(function(error){
+            console.log(error);
         });
+
+    }else{
+        return Object.values(window.localStorage);
+    }
         
-    }
-
-    for(let i = 0; i < window.localStorage.length; i++){
-        apiUrls.push(window.localStorage.Dog5+i);
-    }
-
-    return apiUrls;
+        // return apiUrls;
+       
 }
-
 
 var dogUrls = dogData();
 
 console.log(dogUrls);
 
+var drawTemplate = `
+<div class="left-img">  
+    <img src="${dogUrls}" alt="Left Image "/>
+
+</div>
+
+<div class="right-img">  
+    <img src="${dogUrls}" alt="right Image "/>
+</div>`;
 
 
+theBody.insertAdjacentHTML('afterbegin', drawTemplate);
+
+
+
+// var testArray = ['green','Blue','Orange','Yellow','Red','Purple'];
+
+// testArray.splice(0,2);
+
+// console.log(testArray);
+
+
+btnClick.addEventListener("click", function(){
+
+    dogUrls.splice(0,2);
+    console.log(apiUrls.length);
+    if(apiUrls == 0){
+        window.localStorage.clear()
+    }
+    if(dogUrls.length == 0){
+        dogData();
+    }
+
+});
