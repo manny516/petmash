@@ -41,13 +41,13 @@ var dogUrls = dogData();
 console.log(dogUrls);
 
 var drawTemplate = `
-<div class="left-img">  
-    <img src="${dogUrls}" alt="Left Image "/>
+<div class=" dog-img left-img">  
+    <img src="${localStorageVal[0]}" alt="Left Image "/>
 
 </div>
 
-<div class="right-img">  
-    <img src="${dogUrls}" alt="right Image "/>
+<div class="dog-img right-img">  
+    <img src="${localStorageVal[1]}" alt="right Image "/>
 </div>`;
 
 
