@@ -1,8 +1,7 @@
-var btnClick = document.querySelector('.test');
 var theBody = document.querySelector('#draw');
 var likeImg = [];
 
-function dogData(){
+function API(){
 
     if(window.localStorage.length <= 1){
         fetch("https://api.thedogapi.com/v1/images/search?limit=100",{
@@ -31,4 +30,4 @@ function dogData(){
        
 }
 
-export {btnClick,theBody,dogData} 
+export {likeImg,theBody,API} 
