@@ -1,3 +1,21 @@
 #draw{
-    display: flexbox;;
+    display: flex;
+
+    .dog-img{
+        width:40%;
+        height: 350px;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-left: 30px;
+        cursor: pointer;
+        
+        img{
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+
 }
+
+

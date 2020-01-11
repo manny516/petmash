@@ -1,32 +1,34 @@
-var apiUrls = [];
+var btnClick = document.querySelector('.test');
+var theBody = document.querySelector('#draw');
+var likeImg = [];
 
 function dogData(){
 
-    
+    if(window.localStorage.length <= 1){
+        fetch("https://api.thedogapi.com/v1/images/search?limit=100",{
+        method: 'GET',
+        headers : {
+            'Content-Type':'application/json',
+            'x-api-key' : '47696efc-9fa3-46a5-8715-ed1c7dbdaa87'
+        }
+        }).then( (response) =>{ 
+            return response.json();
+        }).then((theData) => {
 
-    fetch("https://api.thedogapi.com/v1/images/search?limit=100",{
-    method: 'GET',
-    headers : {
-        'Content-Type':'application/json',
-        'x-api-key' : '47696efc-9fa3-46a5-8715-ed1c7dbdaa87'
-    }
-    }).then( (response) =>{ 
-        return response.json();
-    }).then((theData) => {
-        var dogData = [];
-        theData.map((item,index) => {
-            window.localStorage.setItem('Dog'+index,item.url);
+            theData.map((item,index) => {
+                window.localStorage.setItem('Dog'+index,item.url);
+            })
+        }).then(() =>{
+            console.log("No Local storage data was found : Successfully Created Local storage data");
+            return Object.values(window.localStorage);
+        }).catch(function(error){
+            console.log(error);
         });
-    }).catch(function(error){
-        console.log(error);
-    });
 
-    for(let i = 0; i < window.localStorage.length; i++){
-        apiUrls.push(window.localStorage.Dog5+i);
+    }else{
+        return Object.values(window.localStorage);
     }
-    
-    return apiUrls;
-   
+       
 }
 
-export {apiUrls,dogData} 
+export {btnClick,theBody,dogData} 
