@@ -4,6 +4,22 @@ import{btnClick,theBody,dogData} from './js/API.js';
 var dogUrls = dogData();
 displayBoard(dogUrls);
 
+imgClickEvent();
+
+
+function imgClickEvent(likeArray){
+
+    var getImgClick = document.querySelectorAll('.dog-img');
+    getImgClick.forEach(function(item){
+        item.addEventListener('click',(e) => {
+            let getCurrentEle = e.currentTarget;
+            likeArray.push(getCurrentEle.querySelector('img').getAttribute('src'));
+
+        });
+
+    });
+
+}
 
 
 
