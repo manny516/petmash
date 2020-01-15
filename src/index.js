@@ -1,12 +1,11 @@
 require('./css/main.scss');
 import{likeImg,theBody,API} from './js/API.js';
-import{ImageBoard} from './js/ImageBoard.js'
+import{ImageLoader} from './js/ImageLoader.js'
 
 
 var dogUrls = API();
-ImageBoard(dogUrls,theBody);
+ImageLoader(dogUrls,theBody);
 imgClickEvent(likeImg,dogUrls);
-
 
 function imgClickEvent(likeArray,mainArray){
 
@@ -16,9 +15,10 @@ function imgClickEvent(likeArray,mainArray){
         item.addEventListener('click',(e) => {
             let getCurrentEle = e.currentTarget;
             likeArray.push(getCurrentEle.querySelector('img').getAttribute('src'));
-            console.log(likeArray);
             mainArray.splice(0,2);
-
+            getImgClick[0].firstElementChild.setAttribute('src',mainArray[0]);
+            getImgClick[1].firstElementChild.setAttribute('src',mainArray[1]);
+        
         });
 
     });

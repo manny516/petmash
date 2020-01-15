@@ -1,4 +1,4 @@
-function ImageBoard(dogArray,siteContainer){
+function ImageLoader(dogArray,siteContainer){
     var drawTemplate = `
     <div class=" dog-img left-img">  
         <img src="${dogArray[0]}" alt="Left Image "/>
@@ -11,4 +11,4 @@ function ImageBoard(dogArray,siteContainer){
     siteContainer.insertAdjacentHTML('afterbegin', drawTemplate);
 }
 
-export {ImageBoard}
+export {ImageLoader}
