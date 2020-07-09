@@ -1,9 +1,6 @@
-var theBody = document.querySelector('#draw');
-var likeImg = [];
-
 function API(){
 
-    if(window.localStorage.length <= 1){
+    if(window.localStorage.length <= 2){
         fetch("https://api.thedogapi.com/v1/images/search?limit=100",{
         method: 'GET',
         headers : {
@@ -13,13 +10,12 @@ function API(){
         }).then( (response) =>{ 
             return response.json();
         }).then((theData) => {
-
             theData.map((item,index) => {
                 window.localStorage.setItem('Dog'+index,item.url);
             })
         }).then(() =>{
             console.log("No Local storage data was found : Successfully Created Local storage data");
-            return Object.values(window.localStorage);
+            console.log(Object.values(window.localStorage));
         }).catch(function(error){
             console.log(error);
         });
@@ -30,4 +26,4 @@ function API(){
        
 }
 
-export {likeImg,theBody,API} 
+export {API} 

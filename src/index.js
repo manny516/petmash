@@ -1,44 +1,45 @@
 require('./css/main.scss');
-import{likeImg,theBody,API} from './js/API.js';
+import{API} from './js/API.js';
 import{ImageLoader} from './js/ImageLoader.js'
 
+let apiData = API();
+let theBody = document.querySelector('#draw');
+let leftArray = [];
+let rightArray = [];
+let randomLeftArray ;
+let randomRightArray;
+let selectedImages = { };
 
-var dogUrls = API();
-ImageLoader(dogUrls,theBody);
-imgClickEvent(likeImg,dogUrls);
-
-function imgClickEvent(likeArray,mainArray){
-
-    var getImgClick = document.querySelectorAll('.dog-img');
-
-    getImgClick.forEach(function(item){
-        item.addEventListener('click',(e) => {
-            let getCurrentEle = e.currentTarget;
-            likeArray.push(getCurrentEle.querySelector('img').getAttribute('src'));
-            mainArray.splice(0,2);
-            getImgClick[0].firstElementChild.setAttribute('src',mainArray[0]);
-            getImgClick[1].firstElementChild.setAttribute('src',mainArray[1]);
-        
-        });
-
-    });
-
-    
+for(let i = 0; i < apiData.length; i++){
+    if(i % 2 == 0 ){
+        leftArray.push(apiData[i]);
+    }else{
+        rightArray.push(apiData[i]);
+    }
 }
 
+randomLeftArray = Math.floor(Math.random() * leftArray.length);
+randomRightArray = Math.floor(Math.random() * rightArray.length);
 
+ImageLoader(leftArray[randomLeftArray],rightArray[randomRightArray],theBody);
 
+// ImageLoader(leftArray[],theBody);
+// imgClickEvent(dogUrls);
 
+// function imgClickEvent(likeArray,mainArray){
 
-// getImgClick.addEventListener("click", function(e){
-//     console.log(e.currentTarget);
-//     dogUrls.splice(0,2);
-//     console.log(apiUrls.length);
-//     if(apiUrls == 0){
-//         window.localStorage.clear()
+//     var getImgClick = document.querySelectorAll('.dog-img');
+
+//     getImgClick.forEach(function(item){
+//         item.addEventListener('click',(e) => {
+           
+//         });
+        
+//     });
+
+//     if(window.localStorage.length  < 1){
+//         console.log(likeArray());
 //     }
-//     if(dogUrls.length == 0){
-//         dogData();
-//     }
 
-// });
+    
+// }
