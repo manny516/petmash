@@ -15,15 +15,22 @@ function ImageLoader(dogArrayLeft,dogArrayRight,siteContainer){
 }
 
 
-function imgClickEvent({clickObj}){
+function imgClickEvent({clickObj,arrayLeft}){
     let imgClass; 
     // console.log(cacheClicked);
+
+    function returnRandLeft(){
+        return Math.floor(Math.random() * arrayLeft.length);
+    }
     console.log(clickObj);
     clickObj.forEach( (item) =>{
         item.addEventListener("click",(e)=>{
             imgClass = e.currentTarget.classList;
+            console.log(returnRandLeft());
+
             if(imgClass.contains("left-img")){
                 console.log("Run the code for the Left side");
+                
             }
 
             if(imgClass.contains("right-img")){

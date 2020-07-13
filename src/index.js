@@ -10,6 +10,9 @@ let randomLeftArray ;
 let randomRightArray;
 let selectedImages;
 
+randomLeftArray = Math.floor(Math.random() * leftArray.length);
+randomRightArray = Math.floor(Math.random() * rightArray.length);
+
 for(let i = 0; i < apiData.length; i++){
     if(i % 2 == 0 ){
         leftArray.push(apiData[i]);
@@ -18,13 +21,14 @@ for(let i = 0; i < apiData.length; i++){
     }
 }
 
-randomLeftArray = Math.floor(Math.random() * leftArray.length);
-randomRightArray = Math.floor(Math.random() * rightArray.length);
 
+
+console.log(randomLeftArray);
 ImageLoader(leftArray[randomLeftArray],rightArray[randomRightArray],theBody);
 
  selectedImages = { 
     clickObj : document.querySelectorAll(".dog-img"),
+    arrayLeft : leftArray,
 };
 
 // imgClickEvent(dogUrls);
