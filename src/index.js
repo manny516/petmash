@@ -1,39 +1,31 @@
 require('./css/main.scss');
-import{API} from './js/API.js';
-import{ImageLoader,imgClickEvent} from './js/ImageLoader.js'
+import{mainConfig} from './js/ClickConfig.js';
+import{ImageLoader} from './js/ImageLoader.js';
 
-let apiData = API();
-let theBody = document.querySelector('#draw');
-let leftArray = [];
-let rightArray = [];
+
+
+// let leftArray = [];
+// let rightArray = [];
 let randomLeftArray ;
 let randomRightArray;
 let selectedImages;
 
-randomLeftArray = Math.floor(Math.random() * leftArray.length);
-randomRightArray = Math.floor(Math.random() * rightArray.length);
-
-for(let i = 0; i < apiData.length; i++){
-    if(i % 2 == 0 ){
-        leftArray.push(apiData[i]);
-    }else{
-        rightArray.push(apiData[i]);
-    }
-}
+ImageLoader(mainConfig).ranCall;
+// ImageLoader(config).imageHTML;
 
 
 
-console.log(randomLeftArray);
-ImageLoader(leftArray[randomLeftArray],rightArray[randomRightArray],theBody);
+// ranCall();
 
- selectedImages = { 
-    clickObj : document.querySelectorAll(".dog-img"),
-    arrayLeft : leftArray,
-};
 
-// imgClickEvent(dogUrls);
-// rightclick,cacheClicked,clickObj
-imgClickEvent(selectedImages);
+
+// clickConfig = { 
+//     clickObj : document.querySelectorAll(".dog-img"),
+//     arrayLeft : leftArray,
+//     clickCache : selectedImages,
+// };
+
+// imgClickEvent(clickConfig);
 
 // function imgClickEvent(likeArray,mainArray){
     
