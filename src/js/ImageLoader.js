@@ -52,6 +52,7 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
         let imgClass; 
         let imgTag;
         let imgHref;
+        let imgRight
         let imgRanIndexLeft;
         let imgRanIndexRight
         let leftImg = document.querySelector(".left-img img");
@@ -79,7 +80,7 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
                     imgHref = imgTag.getAttribute("src");
                     imgRanIndexLeft = imgTag.getAttribute("data-left-index");
 
-                    clickCache[`left${imgRanIndexLeft}`] = true;
+                    clickCache[`left${imgRanIndexLeft}`] = imgHref;
                 }
 
                 if(imgClass.contains("right-img")){
@@ -87,7 +88,8 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
                     rightArray.splice(randomRightArray,1);
 
                     imgRanIndexRight = imgTag.getAttribute("data-right-index");
-                    clickCache[`right${imgRanIndexRight}`] = true;
+                    imgRight = imgTag.getAttribute("src");
+                    clickCache[`right${imgRanIndexRight}`] = imgRight;
                     console.log("Run the code for the Left side");
                 }
 
