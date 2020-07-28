@@ -7,7 +7,6 @@ let mainConfig = {
     theBody :  document.querySelector('#draw'),
     clickObj : '',
     clickCache : {},
-
 };
 
 export {mainConfig}

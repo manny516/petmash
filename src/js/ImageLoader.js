@@ -1,28 +1,34 @@
 
 function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache}){
 
-    console.log(clickObj);
+    let randomLeftArray;
+    let randomRightArray;
+
     let imageReturn = {
         ranCall : ranCall(),
         imageHTML : imageHTML(),
         imgClick : ImgClickEvent()
     }
 
-    let randomLeftArray;
-    let randomRightArray;
-
+    
     function ranCall(){
-
+        let imgExe = ['png','jpg','gif','jpeg'];
         console.log(apiData);
 
         for(let i = 0; i < apiData.length; i++){
-            if(i % 2 == 0 ){
-                leftArray.push(apiData[i]);
-            }else{
-                rightArray.push(apiData[i]);
+            for(let x = 0; x < imgExe.length; x++){
+                if(apiData[i].slice(-3) == imgExe[x]){
+                    if(i % 2 == 0 ){
+                        leftArray.push(apiData[i]);
+                    }else{
+                        rightArray.push(apiData[i]);
+                    }
+                }
             }
         }
 
+        console.log(leftArray);
+        console.log(rightArray);
         randomRightArray = Math.floor(Math.random() * rightArray.length);
         randomLeftArray = Math.floor(Math.random() * leftArray.length);
         console.log(`Left Array ${randomLeftArray} : Right Array ${randomRightArray}`);
@@ -41,24 +47,38 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
             </div>`;
 
             theBody.insertAdjacentHTML('afterbegin', drawTemplate);
-
-            if(document.querySelectorAll(".dog-img")){
-                clickObj = document.querySelectorAll(".dog-img") ;
-            }
+            document.querySelectorAll(".dog-img") ? clickObj = document.querySelectorAll(".dog-img") : '' ;
+        
     }
 
 
     function ImgClickEvent(){
         let imgClass; 
         let imgTag;
-        let imgHref;
-        let imgRight
+        let imgLeftSrc;
+        let imgRightSrc;
         let imgRanIndexLeft;
-        let imgRanIndexRight
+        let imgRanIndexRight;
         let leftImg = document.querySelector(".left-img img");
         let rightImg = document.querySelector(".right-img img");
-        console.log(clickObj);
+        // console.log(clickObj);
         
+        let srcImgAdd = (position,posArray,posRandArray,posSrc,posIndex)=>{
+            posArray.splice(posRandArray,1);
+            posSrc = imgTag.getAttribute("src");
+            if(position == "right"){
+                posIndex = imgTag.getAttribute("data-right-index");
+                clickCache[`right${posIndex}`] = posSrc;
+                console.log(clickCache[`right${posIndex}`]);
+            }else{
+                posIndex = imgTag.getAttribute("data-left-index");
+                clickCache[`left${posIndex}`] = posSrc;
+                console.log(clickCache[`left${posIndex}`]);
+            }
+
+            console.log(posArray.length);
+        }
+
         clickObj.forEach( (item) =>{
             item.addEventListener("click",(e)=>{
                 
@@ -72,26 +92,12 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
 
                 leftImg.setAttribute("src",leftArray[randomLeftArray]);
                 rightImg.setAttribute('src',rightArray[randomRightArray]);
-              
-                if(imgClass.contains("left-img")){                    
-                    imgTag.setAttribute('data-left-index',randomLeftArray);
-                    leftArray.splice(randomLeftArray,1);
+                leftImg.setAttribute('data-left-index',randomLeftArray);
+                rightImg.setAttribute('data-right-index',randomRightArray);
 
-                    imgHref = imgTag.getAttribute("src");
-                    imgRanIndexLeft = imgTag.getAttribute("data-left-index");
-
-                    clickCache[`left${imgRanIndexLeft}`] = imgHref;
-                }
-
-                if(imgClass.contains("right-img")){
-                    imgTag.setAttribute('data-right-index',randomRightArray);
-                    rightArray.splice(randomRightArray,1);
-
-                    imgRanIndexRight = imgTag.getAttribute("data-right-index");
-                    imgRight = imgTag.getAttribute("src");
-                    clickCache[`right${imgRanIndexRight}`] = imgRight;
-                    console.log("Run the code for the Left side");
-                }
+                imgClass.contains("left-img") ? srcImgAdd("left",leftArray,randomLeftArray,imgLeftSrc,imgRanIndexLeft) : '';
+                
+                imgClass.contains("right-img") ? srcImgAdd("right",rightArray,randomRightArray,imgRightSrc,imgRanIndexRight) : '';
 
                 console.log(clickCache);
             });
