@@ -10,22 +10,28 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
         imgClick : ImgClickEvent()
     }
 
-    
-    function ranCall(){
-        let imgExe = ['png','jpg','gif','jpeg'];
-        console.log(apiData);
 
-        for(let i = 0; i < apiData.length; i++){
+    function splitSpread(ParentArray,ChOne,ChTwo){
+        
+        let imgExe = ['png','jpg','gif','jpeg'];
+        for(let i = 0; i < ParentArray.length; i++){
             for(let x = 0; x < imgExe.length; x++){
-                if(apiData[i].slice(-3) == imgExe[x]){
+                if(ParentArray[i].slice(-3) == imgExe[x]){
                     if(i % 2 == 0 ){
-                        leftArray.push(apiData[i]);
+                        ChOne.push(ParentArray[i]);
                     }else{
-                        rightArray.push(apiData[i]);
+                        ChTwo.push(ParentArray[i]);
                     }
                 }
             }
         }
+
+    }
+
+    
+    function ranCall(){
+        console.log(apiData);
+        splitSpread(apiData,leftArray,rightArray);
 
         console.log(leftArray);
         console.log(rightArray);
