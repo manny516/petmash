@@ -4,9 +4,10 @@ let mainConfig = {
     apiData : API(),
     leftArray : [],
     rightArray : [],
+    restArray : [],
     theBody :  document.querySelector('#draw'),
     clickObj : '',
-    clickCache : {},
+    clickCache : new Object,
 };
 
 export {mainConfig}

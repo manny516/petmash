@@ -1,8 +1,8 @@
+import { toInteger } from "lodash";
 
-function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache}){
+function ImageLoader({apiData,leftArray,rightArray,restArray,theBody,clickObj,clickCache}){
 
-    let randomLeftArray;
-    let randomRightArray;
+    let randomLeftArray,randomRightArray;
 
     let imageReturn = {
         ranCall : ranCall(),
@@ -10,6 +10,7 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
         imgClick : ImgClickEvent()
     }
 
+    
 
     function splitSpread(ParentArray,ChOne,ChTwo){
         
@@ -32,18 +33,49 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
     function ranCall(){
         console.log(apiData);
         splitSpread(apiData,leftArray,rightArray);
-
-        console.log(leftArray);
-        console.log(rightArray);
+    
         randomRightArray = Math.floor(Math.random() * rightArray.length);
         randomLeftArray = Math.floor(Math.random() * leftArray.length);
         console.log(`Left Array ${randomLeftArray} : Right Array ${randomRightArray}`);
     }
 
 
+    function imageRest(imgClass){
+
+        console.log(imgClass);
+     
+        if(leftArray.length >= Math.max(leftArray.length,rightArray.length)){
+            // console.log(Math.ceil(rightArray.length * .30));
+            if(rightArray.length <= Math.ceil( parseInt(imgClass) * .40)){
+                // restArray.push.apply(leftArray,rightArray);
+                // console.log(restArray);
+                console.log("Right is larger and time to rest");
+            }
+        }else if(rightArray.length >= Math.max(rightArray.length,rightArray.length)){
+            if(leftArray.length <= Math.ceil(parseInt(imgClass) * .40)){
+                console.log("Left is larger and time to rest");
+            }
+        }
+    //     if(leftArray.length == Math.max(leftArray.length,rightArray.length)){
+    //         // if(rightArray.length <= Math.ceil(rightArray * .30)){
+    //         //     restArray.push.apply(leftArray,rightArray);
+    //         //     console.log(restArray);
+    //         // }
+    //         console.log("ITs larger");
+    //     }
+    }
+
+    function addLength(divClass,targetArray){
+        divClass.setAttribute("data-image-length",targetArray.length);
+    }
+    
     function imageHTML(){
 
-        let drawTemplate = `
+        let leftImg,
+        rightImg,
+        drawTemplate;
+      
+        drawTemplate = `
             <div class=" dog-img left-img">  
                 <img src="${leftArray[randomLeftArray]}" alt="Left Image" data-left-index="${randomLeftArray}"/>
             </div>
@@ -54,20 +86,28 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
 
             theBody.insertAdjacentHTML('afterbegin', drawTemplate);
             document.querySelectorAll(".dog-img") ? clickObj = document.querySelectorAll(".dog-img") : '' ;
+
+            leftImg = document.querySelector(".left-img");
+            rightImg = document.querySelector(".right-img");
+            
+            addLength(leftImg,leftArray);
+            addLength(rightImg,rightArray);
         
     }
 
 
     function ImgClickEvent(){
-        let imgClass; 
-        let imgTag;
-        let imgLeftSrc;
-        let imgRightSrc;
-        let imgRanIndexLeft;
-        let imgRanIndexRight;
+        let imgClass,
+        imgTag,
+        imgLeftSrc,
+        imgRightSrc,
+        imgRanIndexLeft,
+        imgRanIndexRight;
+
+        let leftDiv= document.querySelector(".left-img").getAttribute("data-image-length");
+        let rightDiv = document.querySelector(".right-img").getAttribute("data-image-length");
         let leftImg = document.querySelector(".left-img img");
         let rightImg = document.querySelector(".right-img img");
-        // console.log(clickObj);
         
         let srcImgAdd = (position,posArray,posRandArray,posSrc,posIndex)=>{
             posArray.splice(posRandArray,1);
@@ -93,6 +133,7 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
 
                 console.log(`Random Right ${randomRightArray}`);
                 console.log(`Random Left ${randomLeftArray}`);
+
                 imgClass = e.currentTarget.classList;
                 imgTag = e.currentTarget.querySelector("img");
 
@@ -101,9 +142,16 @@ function ImageLoader({apiData,leftArray,rightArray,theBody,clickObj,clickCache})
                 leftImg.setAttribute('data-left-index',randomLeftArray);
                 rightImg.setAttribute('data-right-index',randomRightArray);
 
-                imgClass.contains("left-img") ? srcImgAdd("left",leftArray,randomLeftArray,imgLeftSrc,imgRanIndexLeft) : '';
+                if(imgClass.contains("left-img")){ 
+                    srcImgAdd("left",leftArray,randomLeftArray,imgLeftSrc,imgRanIndexLeft) ;
+                    imageRest(leftDiv);
+                }
                 
-                imgClass.contains("right-img") ? srcImgAdd("right",rightArray,randomRightArray,imgRightSrc,imgRanIndexRight) : '';
+                if(imgClass.contains("right-img")){
+                    srcImgAdd("right",rightArray,randomRightArray,imgRightSrc,imgRanIndexRight);
+                    imageRest(rightDiv);
+
+                } 
 
                 console.log(clickCache);
             });
