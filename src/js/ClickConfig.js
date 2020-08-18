@@ -7,7 +7,7 @@ let mainConfig = {
     restArray : [],
     theBody :  document.querySelector('#draw'),
     clickObj : '',
-    clickCache : new Object,
+    clickCache : new Object
 };
 
 export {mainConfig}

@@ -1,9 +1,21 @@
+.pet-header{
+    border: 1px solid #000;
+    margin-bottom: 20px;
+    font-size:24px;
+    .logo-img{padding-top:20px;}
+    .logo-img,.logo-title{ display:inline;}
+    .logo-title{
+        position: absolute;
+        padding-top: 30px;
+    }
+}
 #draw{
     display: flex;
-
+    width: 70%;
+    margin: auto;
     .dog-img{
-        width:40%;
-        height: 350px;
+        width:50%;
+        height: 305px;
         overflow: hidden;
         border-radius: 15px;
         margin-left: 30px;
